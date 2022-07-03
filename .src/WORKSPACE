@@ -1,0 +1,26 @@
+# rules_python
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+git_repository(
+    name = "rules_python",
+    commit = "3baa2660569a76898d0f520c73b299ea39b6374d",
+    remote = "https://github.com/bazelbuild/rules_python.git",
+    shallow_since = "1599564582 +1000",
+)
+
+load("@rules_python//python:repositories.bzl", "py_repositories")
+
+py_repositories()
+
+load("@rules_python//python:pip.bzl", "pip3_import", "pip_repositories")
+
+pip_repositories()
+
+pip3_import(
+    name = "requirements",
+    requirements = "//:requirements.txt",
+)
+
+load("@requirements//:requirements.bzl", "pip_install")
+
+pip_install()
